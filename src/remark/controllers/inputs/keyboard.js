@@ -1,9 +1,17 @@
 module.exports = Keyboard;
 
+function carousel(k) {
+  if (k._isAuto) {
+    k._events.emit('gotoNextSlide');
+  }
+}
+
 function Keyboard(events) {
   this._events = events;
   
   this.activate();
+  
+  setInterval(function () {carousel(this)}, 4000);
 }
 
 Keyboard.prototype.activate = function () {
@@ -72,7 +80,11 @@ Keyboard.prototype.addKeyboardEventListeners = function () {
 
     switch (key) {
       case 's':
-        events.emit('toggleAuto');
+        if (self._isAuto) {
+          self._isAuto = false;
+        } else {
+          self._isAuto = true;
+        }
         break;
       case 'j':
         events.emit('gotoNextSlide');
@@ -124,3 +136,4 @@ Keyboard.prototype.removeKeyboardEventListeners = function () {
   events.removeAllListeners("keydown");
   events.removeAllListeners("keypress");
 };
+
