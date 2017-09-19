@@ -71,6 +71,9 @@ Keyboard.prototype.addKeyboardEventListeners = function () {
     var key = String.fromCharCode(event.which).toLowerCase();
 
     switch (key) {
+      case 's':
+        events.emit('toggleAuto');
+        break;
       case 'j':
         events.emit('gotoNextSlide');
         break;
